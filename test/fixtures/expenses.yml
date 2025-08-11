@@ -1,0 +1,35 @@
+# == Schema Information
+#
+# Table name: expenses
+#
+#  id             :integer          not null, primary key
+#  title          :string
+#  description    :string
+#  amount         :float
+#  expense_date   :date
+#  payment_method :string
+#  user_id        :integer          not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  category_id    :integer          not null
+#
+
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyString
+  amount: 1.5
+  category: MyString
+  expense_date: 2025-08-11
+  payment_method: MyString
+  user: one
+
+two:
+  title: MyString
+  description: MyString
+  amount: 1.5
+  category: MyString
+  expense_date: 2025-08-11
+  payment_method: MyString
+  user: two
