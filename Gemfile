@@ -68,3 +68,8 @@ end
 # bcrypt is used to securely hash and store user passwords.
 # It provides the `has_secure_password` method for easy password handling.
 gem "bcrypt", "~> 3.1.7"
+
+# jsonapi-serializer is used to serialize Ruby objects into JSON API format.
+# It helps in creating consistent and efficient JSON responses for APIs.
+gem "jsonapi-serializer"
+gem "jsonapi-rails"
