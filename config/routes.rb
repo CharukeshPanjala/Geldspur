@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       # Users routes
-      resources :users, only: [:create, :show, :update] do
+      resources :users, only: [ :create, :show, :update ] do
         collection do
           post :login
           post :forgot_password
@@ -19,16 +19,16 @@ Rails.application.routes.draw do
       end
 
       # Expenses CRUD routes
-      resources :expenses, only: [:index, :show, :create, :update, :destroy]
+      resources :expenses, only: [ :index, :show, :create, :update, :destroy ]
 
       # Incomes CRUD routes
-      resources :incomes, only: [:index, :show, :create, :update, :destroy]
+      resources :incomes, only: [ :index, :show, :create, :update, :destroy ]
 
       # Budgets CRUD routes
-      resources :budgets, only: [:index, :show, :create, :update, :destroy]
+      resources :budgets, only: [ :index, :show, :create, :update, :destroy ]
 
       # Categories CRUD routes
-      resources :categories, only: [:index, :show, :create, :update, :destroy]
+      resources :categories, only: [ :index, :show, :create, :update, :destroy ]
     end
   end
 
