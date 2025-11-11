@@ -6,19 +6,19 @@ module Api
             # GET /categories
             def index
                 @categories = Category.all
-                render json: CategorySerializer.new(@categories).serializable_hash.to_json
+                render json: @categories.map(&:as_json_response)
             end
 
             # GET /categories/:id
             def show
-                render json: CategorySerializer.new(@category).serializable_hash.to_json
+                render json: @category.as_json_response
             end
 
             # POST /categories
             def create
                 @category = Category.new(category_params)
                 if @category.save
-                    render json: CategorySerializer.new(@category).serializable_hash.to_json, status: :created
+                    render json: @category.as_json_response, status: :created
                 else
                     render json: { errors: @category.errors.full_messages }, status: :unprocessable_entity
                 end
@@ -27,7 +27,7 @@ module Api
             # PUT /categories/:id
             def update
                 if @category.update(category_params)
-                    render json: CategorySerializer.new(@category).serializable_hash.to_json
+                    render json: @category.as_json_response
                 else
                     render json: { errors: @category.errors.full_messages }, status: :unprocessable_entity
                 end

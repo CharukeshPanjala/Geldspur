@@ -51,7 +51,10 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   # adding schema comments to the top of your model files
-  gem 'annotate'
+  gem "annotate"
+
+  gem "pry"
+  gem "pry-byebug"
 end
 
 group :development do
@@ -69,7 +72,8 @@ end
 # It provides the `has_secure_password` method for easy password handling.
 gem "bcrypt", "~> 3.1.7"
 
-# jsonapi-serializer is used to serialize Ruby objects into JSON API format.
-# It helps in creating consistent and efficient JSON responses for APIs.
-gem "jsonapi-serializer"
-gem "jsonapi-rails"
+gem "rspec-rails", "~> 8.0"
+
+gem "factory_bot_rails", "~> 6.5"
+
+gem "faker", "~> 3.5"

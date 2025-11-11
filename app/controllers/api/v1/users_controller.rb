@@ -6,19 +6,19 @@ module Api
             # GET /users
             def index
                 @users = User.all
-                render json: UserSerializer.new(@users).serializable_hash.to_json
+                render json: @users.map(&:as_json_response)
             end
 
             # GET /users/:id
             def show
-                render json: UserSerializer.new(@user).serializable_hash.to_json
+                render json: @user.as_json_response
             end
 
             # POST /users
             def create
                 @user = User.new(user_params)
                 if @user.save
-                    render json: UserSerializer.new(@user).serializable_hash.to_json, status: :created
+                    render json: @user.as_json_response, status: :created
                 else
                     render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
                 end
@@ -27,7 +27,7 @@ module Api
             # PUT /users/:id
             def update
                 if @user.update(user_params)
-                    render json: UserSerializer.new(@user).serializable_hash.to_json
+                    render json: @user.as_json_response
                 else
                     render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
                 end

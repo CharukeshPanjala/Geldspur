@@ -6,19 +6,19 @@ module Api
             # GET /budgets
             def index
                 @budgets = Budget.all
-                render json: BudgetSerializer.new(@budgets).serializable_hash.to_json
+                render json: @budgets.map(&:as_json_response)
             end
 
             # GET /budgets/:id
             def show
-                render json: BudgetSerializer.new(@budget).serializable_hash.to_json
+                render json: @budget.as_json_response
             end
 
             # POST /budgets
             def create
                 @budget = Budget.new(budget_params)
                 if @budget.save
-                    render json: BudgetSerializer.new(@budget).serializable_hash.to_json, status: :created
+                    render json: @budget.as_json_response, status: :created
                 else
                     render json: { errors: @budget.errors.full_messages }, status: :unprocessable_entity
                 end
@@ -27,7 +27,7 @@ module Api
             # PUT /budgets/:id
             def update
                 if @budget.update(budget_params)
-                    render json: BudgetSerializer.new(@budget).serializable_hash.to_json
+                    render json: @budget.as_json_response
                 else
                     render json: { errors: @budget.errors.full_messages }, status: :unprocessable_entity
                 end
@@ -48,7 +48,7 @@ module Api
             end
 
             def budget_params
-                params.require(:budget).permit(:amount, :start_date, :end_date, :category_id, :user_id)
+                params.require(:budget).permit(:name, :description, :amount, :start_date, :end_date, :category_id, :user_id)
             end
         end
     end

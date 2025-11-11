@@ -24,6 +24,9 @@ class Category < ApplicationRecord
 
   before_save :generate_slug
 
+  scope :find_by_slug, ->(slug) { find_by(slug: slug) }
+  scope :ordered, -> { order(:name) }
+
   def generate_slug
     self.slug = name.parameterize if name.present?
   end
@@ -52,6 +55,17 @@ class Category < ApplicationRecord
     incomes_for_user(user).sum(:amount)
   end
 
-  scope :find_by_slug, ->(slug) { find_by(slug: slug) }
-  scope :ordered, -> { order(:name) }
+  def as_json_response
+    {
+      id: id,
+      name: name,
+      description: description,
+      category_type: category_type,
+      slug: slug,
+      user: {
+        id: user.id,
+        name: user.first_name + " " + user.last_name
+      }
+    }
+  end
 end

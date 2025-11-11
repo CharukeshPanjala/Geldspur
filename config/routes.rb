@@ -32,5 +32,5 @@ Rails.application.routes.draw do
     end
   end
 
-  get '*path', to: 'dashboard#index', via: :all
+  get "*path", to: "dashboard#index", via: :all
 end
