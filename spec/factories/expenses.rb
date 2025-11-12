@@ -7,6 +7,6 @@ FactoryBot.define do
     description { Faker::Lorem.sentence }
     amount { rand(10..300).to_f }
     expense_date { Date.today }
-    payment_method { ["cash", "card", "online"].sample }
+    payment_method { [ "cash", "card", "online" ].sample }
   end
 end
