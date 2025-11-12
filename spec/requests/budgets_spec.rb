@@ -2,7 +2,12 @@
 require 'rails_helper'
 
 RSpec.describe "Budgets API", type: :request do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, password: "password123") }
+
+  before do
+    login_as(user)
+  end
+
   let!(:category) { create(:category, user: user, category_type: "expense") }
   let!(:budgets) { create_list(:budget, 3, user: user, category: category, amount: 1000.0, start_date: 5.days.ago, end_date: 5.days.from_now) }
   let(:budget) { budgets.first }

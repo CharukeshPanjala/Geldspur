@@ -1,22 +1,27 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # Devise routes for authentication
+  devise_for :users
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # Health check route
   get "up" => "rails/health#show", as: :rails_health_check
 
+  # Root route
   root "dashboard#index"
 
   namespace :api do
     namespace :v1 do
       # Users routes
-      resources :users, only: [ :create, :show, :update ] do
+      resources :users, only: [ :show, :update ] do
         collection do
+          get :index       # Admin-only: list all users
           post :login
           post :forgot_password
           post :change_password
         end
       end
+
+      # Optional admin-only delete route
+      delete "users/:id", to: "users#destroy", as: :destroy_user
 
       # Expenses CRUD routes
       resources :expenses, only: [ :index, :show, :create, :update, :destroy ]
@@ -32,5 +37,6 @@ Rails.application.routes.draw do
     end
   end
 
+  # Catch-all route for frontend
   get "*path", to: "dashboard#index", via: :all
 end

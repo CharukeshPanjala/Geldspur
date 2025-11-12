@@ -1,11 +1,12 @@
 module Api
   module V1
     class IncomesController < ApplicationController
+      before_action :authenticate_user!              # Devise authentication
       before_action :set_income, only: [ :show, :update, :destroy ]
 
       # GET /incomes
       def index
-        @incomes = Income.all
+        @incomes = current_user.incomes
         render json: @incomes.map(&:as_json_response)
       end
 
@@ -42,7 +43,7 @@ module Api
       private
 
       def set_income
-        @income = Income.find(params[:id])
+        @income = current_user.incomes.find(params[:id])
       rescue ActiveRecord::RecordNotFound
         render json: { error: "Income not found" }, status: :not_found
       end

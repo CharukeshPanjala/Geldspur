@@ -1,7 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe "Incomes API", type: :request do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, password: "password123") }
+
+  before do
+    login_as(user)
+  end
+
   let!(:category) { create(:category, user: user) }
   let!(:incomes) { create_list(:income, 3, user: user, category: category) }
   let(:income) { incomes.first }

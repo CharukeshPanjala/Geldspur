@@ -1,10 +1,11 @@
 module Api
     module V1
         class ExpensesController < ApplicationController
+            before_action :authenticate_user!              # Devise authentication
             before_action :set_expense, only: [ :show, :update, :destroy ]
             # GET /expenses
             def index
-                @expenses = Expense.all
+                @expenses = current_user.expenses
                 render json: @expenses.map(&:as_json_response)
             end
 
@@ -43,7 +44,7 @@ module Api
 
             private
             def set_expense
-                @expense = Expense.find(params[:id])
+                @expense = current_user.expenses.find(params[:id])
             rescue ActiveRecord::RecordNotFound
                 render json: { error: "Expense not found" }, status: :not_found
             end

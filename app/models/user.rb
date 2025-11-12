@@ -9,12 +9,16 @@
 #  mobile_number   :string
 #  country         :string
 #  city            :string
-#  password_digest :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  role            :string           default("user")
 #
 
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
     has_many :expenses
     has_many :incomes
     has_many :budgets
@@ -25,8 +29,10 @@ class User < ApplicationRecord
     validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
     validates :mobile_number, presence: true, format: { with: /\A\+?\d{10,15}\z/, message: "must be a valid phone number" }
 
-    has_secure_password
 
+    def admin?
+        role == "admin"
+    end
 
     def full_name
         "#{first_name} #{last_name}"

@@ -1,11 +1,12 @@
 module Api
     module V1
         class BudgetsController < ApplicationController
+            before_action :authenticate_user!              # Devise authentication
             before_action :set_budget, only: [ :show, :update, :destroy ]
 
             # GET /budgets
             def index
-                @budgets = Budget.all
+                @budgets = current_user.budgets
                 render json: @budgets.map(&:as_json_response)
             end
 
@@ -42,7 +43,7 @@ module Api
             private
 
             def set_budget
-                @budget = Budget.find(params[:id])
+                @budget =current_user.budgets.find(params[:id])
             rescue ActiveRecord::RecordNotFound
                 render json: { error: "Budget not found" }, status: :not_found
             end

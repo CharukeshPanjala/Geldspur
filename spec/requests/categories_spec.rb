@@ -1,7 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe "Categories API", type: :request do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, password: "password123") }
+
+  before do
+    login_as(user)
+  end
+
   let!(:categories) { create_list(:category, 3, user: user) }
   let(:category) { categories.first }
 

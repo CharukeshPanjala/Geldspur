@@ -1,11 +1,12 @@
 module Api
     module V1
         class CategoriesController < ApplicationController
+            before_action :authenticate_user!              # Devise authentication
             before_action :set_category, only: [ :show, :update, :destroy ]
 
             # GET /categories
             def index
-                @categories = Category.all
+                @categories = current_user.categories
                 render json: @categories.map(&:as_json_response)
             end
 
@@ -42,7 +43,7 @@ module Api
             private
 
             def set_category
-                @category = Category.find(params[:id])
+                @category = current_user.categories.find(params[:id])
             rescue ActiveRecord::RecordNotFound
                 render json: { error: "Category not found" }, status: :not_found
             end
