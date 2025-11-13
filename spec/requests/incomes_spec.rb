@@ -80,7 +80,7 @@ RSpec.describe "Incomes API", type: :request do
       it "returns unprocessable entity" do
         post base_url, params: invalid_params
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         json = JSON.parse(response.body)
         expect(json["errors"]).to include("Title can't be blank")
       end

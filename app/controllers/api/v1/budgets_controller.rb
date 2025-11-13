@@ -21,7 +21,7 @@ module Api
                 if @budget.save
                     render json: @budget.as_json_response, status: :created
                 else
-                    render json: { errors: @budget.errors.full_messages }, status: :unprocessable_entity
+                    render json: { errors: @budget.errors.full_messages }, status: :unprocessable_content
                 end
             end
 
@@ -30,7 +30,7 @@ module Api
                 if @budget.update(budget_params)
                     render json: @budget.as_json_response
                 else
-                    render json: { errors: @budget.errors.full_messages }, status: :unprocessable_entity
+                    render json: { errors: @budget.errors.full_messages }, status: :unprocessable_content
                 end
             end
 

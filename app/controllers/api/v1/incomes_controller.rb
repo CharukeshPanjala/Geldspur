@@ -21,7 +21,7 @@ module Api
         if @income.save
           render json: @income.as_json_response, status: :created
         else
-          render json: { errors: @income.errors.full_messages }, status: :unprocessable_entity
+          render json: { errors: @income.errors.full_messages }, status: :unprocessable_content
         end
       end
 
@@ -30,7 +30,7 @@ module Api
         if @income.update(income_params)
           render json: @income.as_json_response
         else
-          render json: { errors: @income.errors.full_messages }, status: :unprocessable_entity
+          render json: { errors: @income.errors.full_messages }, status: :unprocessable_content
         end
       end
 

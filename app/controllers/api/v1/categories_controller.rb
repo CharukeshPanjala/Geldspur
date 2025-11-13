@@ -21,7 +21,7 @@ module Api
                 if @category.save
                     render json: @category.as_json_response, status: :created
                 else
-                    render json: { errors: @category.errors.full_messages }, status: :unprocessable_entity
+                    render json: { errors: @category.errors.full_messages }, status: :unprocessable_content
                 end
             end
 
@@ -30,7 +30,7 @@ module Api
                 if @category.update(category_params)
                     render json: @category.as_json_response
                 else
-                    render json: { errors: @category.errors.full_messages }, status: :unprocessable_entity
+                    render json: { errors: @category.errors.full_messages }, status: :unprocessable_content
                 end
             end
 
