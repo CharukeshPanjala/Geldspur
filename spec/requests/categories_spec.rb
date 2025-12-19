@@ -4,7 +4,7 @@ RSpec.describe "Categories API", type: :request do
   let!(:user) { create(:user, password: "password123") }
 
   before do
-    login_as(user)
+    api_login(user)
   end
 
   let!(:categories) { create_list(:category, 3, user: user) }

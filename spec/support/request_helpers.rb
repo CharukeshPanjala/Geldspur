@@ -1,6 +1,6 @@
 module RequestSpecHelper
   # Logs in a user using Devise routes
-  def login_as(user)
+  def api_login(user)
     post user_session_path, params: {
       user: { email: user.email, password: user.password || "password123" }
     }

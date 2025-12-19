@@ -1,9 +1,9 @@
 # Clear existing data (optional, be careful in production!)
-User.destroy_all
-Category.destroy_all
 Expense.destroy_all
 Income.destroy_all
 Budget.destroy_all
+Category.destroy_all
+User.destroy_all
 
 # Create Users
 user1 = User.create!(
@@ -78,7 +78,7 @@ Expense.create!(
   category: entertainment,
   expense_date: Date.today - 2,
   payment_method: "Cash",
-  user: user2
+  user: user1
 )
 
 
